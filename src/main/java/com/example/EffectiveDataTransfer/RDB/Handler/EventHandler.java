@@ -1,12 +1,11 @@
-package com.example.EffectiveDataTransfer.Handler;
+package com.example.EffectiveDataTransfer.RDB.Handler;
 
-import com.example.EffectiveDataTransfer.dto.CreateTaskEvent;
+import com.example.EffectiveDataTransfer.RDB.dto.CreateTaskEvent;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 public class EventHandler {

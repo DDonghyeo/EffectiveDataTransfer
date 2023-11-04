@@ -1,6 +1,6 @@
-package com.example.EffectiveDataTransfer.Repository;
+package com.example.EffectiveDataTransfer.RDB.Repository;
 
-import com.example.EffectiveDataTransfer.Entity.Task;
+import com.example.EffectiveDataTransfer.RDB.Entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

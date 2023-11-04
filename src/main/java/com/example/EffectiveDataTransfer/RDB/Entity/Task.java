@@ -1,4 +1,4 @@
-package com.example.EffectiveDataTransfer.Entity;
+package com.example.EffectiveDataTransfer.RDB.Entity;
 
 
 import jakarta.persistence.*;

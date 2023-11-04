@@ -1,6 +1,6 @@
-package com.example.EffectiveDataTransfer.dto;
+package com.example.EffectiveDataTransfer.RDB.dto;
 
-import com.example.EffectiveDataTransfer.Entity.Task;
+import com.example.EffectiveDataTransfer.RDB.Entity.Task;
 import lombok.Data;
 
 @Data
