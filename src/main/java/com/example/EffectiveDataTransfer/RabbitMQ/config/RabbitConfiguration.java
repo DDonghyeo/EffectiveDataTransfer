@@ -2,9 +2,12 @@ package com.example.EffectiveDataTransfer.RabbitMQ.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.config.RetryInterceptorBuilder;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.rabbit.retry.RejectAndDontRequeueRecoverer;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -65,5 +68,22 @@ public class RabbitConfiguration {
         //Producer Confirm 설정
         cf.setPublisherConfirmType(CachingConnectionFactory.ConfirmType.CORRELATED);
         return cf;
+    }
+
+    //Dead Letter Queue
+    @Bean
+    public SimpleRabbitListenerContainerFactory retryContainerFactory(ConnectionFactory connectionFactory) {
+        //...
+
+        var containerFactory = new SimpleRabbitListenerContainerFactory();
+        containerFactory.setConnectionFactory(connectionFactory);
+        containerFactory.setAdviceChain(
+                RetryInterceptorBuilder.stateless()
+                        .maxAttempts(3)
+                        .backOffOptions(1000, 2, 2000)
+                        .recoverer(new RejectAndDontRequeueRecoverer())
+                        .build()
+        );
+        return containerFactory;
     }
 }
